@@ -1,0 +1,41 @@
+apt-get install -y gawk git gnupg flex bison gperf build-essential zip curl libc6-dev libncurses5-dev x11proto-core-dev libx11-dev libreadline6-dev libgl1-mesa-glx libgl1-mesa-dev g++-multilib tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev lib32z1 bc
+
+
+
+
+# for H3
+https://github.com/friendlyarm/prebuilts/raw/master/gcc-x64/arm-cortexa9-linux-gnueabihf-4.9.3.tar.xz
+
+# for H5
+https://github.com/friendlyarm/prebuilts/raw/master/gcc-x64/aarch64-cortexa53-linux-gnu-6.4.tar.xz
+
+sudo apt-get install -y device-tree-compiler
+sudo apt-get install -y emacs-nox
+sudo apt-get install -y xz-utils
+
+
+Compile Linux Kernel
+Download Linux Kernel Source Code:
+
+$ git clone https://github.com/friendlyarm/linux.git
+$ cd linux
+$ git checkout sunxi-4.11.y
+Compile Linux Kernel:
+
+$ touch .scmversion
+$ make sunxi_arm64_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+$ make Image dtbs ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+$ make modules ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+$ make modules_install ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=`pwd`/root`
+$ cd `pwd`/root
+$ tar cvf lib.tar lib
+$ scp <target host>
+# untar from root dir
+
+
+If your compilation is successful an Image will be generated under "arch/arm64/boot/" and a dtb file will be generated under "arch/arm64/boot/dts/allwinner/".
+
+If your SD card's boot section is mounted at "/media/SD/boot/" you can update its Image and dtb files by running the following commands:
+
+$ cp arch/arm64/boot/Image /media/SD/boot/
+$ cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi*.dtb /media/SD/boot/

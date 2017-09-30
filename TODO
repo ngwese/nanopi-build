@@ -1,0 +1,4 @@
+[ ] consider statically including the usbserial ftdi_sio kernel modules
+[ ] create kernel build script to pile everything into a single build output dir
+[ ] rebase sunxi changes on top of 4.11.12, clean compile, test
+[ ] apply rt-4.11.12-rt13 patch; recompile kernel (and modules?)
